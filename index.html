@@ -2,164 +2,145 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stylish Music Player</title>
+<title>Music Player UI</title>
+
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI, sans-serif;
+}
 
-  body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
-    font-family: 'Poppins', sans-serif;
-  }
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#020617,#0f172a);
+}
 
-  .player {
-    background-color: #1e1e1e;
-    width: 360px;
-    border-radius: 25px;
-    padding: 25px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.7);
-    color: #fff;
-    text-align: center;
-  }
+/* Player */
+.player{
+  width:300px;
+  background:#020617;
+  border-radius:22px;
+  padding:20px;
+  color:#e5e7eb;
+  box-shadow:0 20px 40px rgba(0,0,0,.6);
+}
 
-  .album-art {
-    width: 100%;
-    height: 280px;
-    background: url('https://via.placeholder.com/360x280') center/cover no-repeat;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
+/* Album */
+.album{
+  width:100%;
+  height:260px;
+  border-radius:16px;
+  overflow:hidden;
+  margin-bottom:15px;
+}
 
-  .album-art:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px #1db954;
-  }
+.album img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  image-rendering:auto;
+}
 
-  .song-info h3 {
-    margin: 0;
-    font-size: 22px;
-    font-weight: 600;
-  }
+/* Text */
+.song{
+  font-size:18px;
+  text-align:center;
+}
 
-  .song-info p {
-    margin: 5px 0 20px;
-    font-size: 14px;
-    color: #b0b0b0;
-  }
+.artist{
+  font-size:13px;
+  text-align:center;
+  color:#94a3b8;
+  margin-bottom:15px;
+}
 
-  /* Song Logo with SVG */
-  .song-logo {
-    width: 70px;
-    height: 70px;
-    background-color: #2a2a2a;
-    border-radius: 50%;
-    margin: 0 auto 15px auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 0 15px #1db954;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
+/* Progress */
+.progress{
+  width:100%;
+  height:6px;
+  background:#1e293b;
+  border-radius:10px;
+  overflow:hidden;
+}
 
-  .song-logo:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 25px #1db954;
-  }
+.progress-fill{
+  width:35%;
+  height:100%;
+  background:#38bdf8;
+  transition:.4s;
+}
 
-  .song-logo svg {
-    width: 40px;
-    height: 40px;
-    fill: #1db954;
-  }
+.progress:hover .progress-fill{
+  width:75%;
+}
 
-  .controls {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-bottom: 20px;
-  }
+/* Time */
+.time{
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  color:#94a3b8;
+  margin:6px 0 12px;
+}
 
-  .controls button {
-    background-color: #2a2a2a;
-    border: none;
-    color: #fff;
-    font-size: 22px;
-    padding: 14px;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    transition: all 0.3s;
-  }
+/* Controls */
+.controls{
+  display:flex;
+  justify-content:space-around;
+}
 
-  .controls button:hover {
-    background-color: #1db954;
-    transform: scale(1.2);
-    color: #fff;
-    box-shadow: 0 0 20px #1db954;
-  }
+.controls button{
+  background:none;
+  border:none;
+  color:#38bdf8;
+  font-size:20px;
+  cursor:pointer;
+  transition:.2s;
+}
 
-  .progress-container {
-    width: 100%;
-    height: 8px;
-    background-color: #333;
-    border-radius: 10px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 10px;
-  }
+.controls button:hover{
+  transform:scale(1.2);
+  color:#7dd3fc;
+}
 
-  .progress {
-    height: 100%;
-    width: 50%;
-    background: linear-gradient(90deg, #1db954, #00ffa0);
-    border-radius: 10px;
-    transition: width 0.3s;
-  }
-
-  .time {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    color: #b0b0b0;
-    margin-top: 5px;
-  }
+.play{
+  font-size:26px;
+}
 </style>
 </head>
+
 <body>
-  <div class="player">
-    <div class="album-art"></div>
-    <div class="song-info">
-      <h3>Chill Vibes</h3>
-      <p>Artist Name</p>
-    </div>
 
-    <!-- Perfect Song Logo using SVG -->
-    <div class="song-logo">
-      <svg viewBox="0 0 512 512">
-        <path d="M470.64 1.27c-6.38-1.76-13.1 1.04-16.71 6.36L192 174.21v254.07c-9.53-2.77-19.73-4.28-30.29-4.28-53.02 0-96 42.98-96 96s42.98 96 96 96 96-42.98 96-96V218.87L465.5 16.5c4.08-6.09 1.8-14.55-4.86-18.84z"/>
-      </svg>
-    </div>
-
-    <div class="controls">
-      <button>&laquo;</button>
-      <button>&#9658;</button>
-      <button>&raquo;</button>
-    </div>
-
-    <div class="progress-container">
-      <div class="progress"></div>
-    </div>
-    <div class="time">
-      <span>1:23</span>
-      <span>3:45</span>
-    </div>
+<div class="player">
+  <div class="album">
+    <!-- High-quality image -->
+    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=100"
+         alt="Song Image">
   </div>
+
+  <h3 class="song">Perfect</h3>
+  <p class="artist">Ed Sheeran</p>
+
+  <div class="progress">
+    <div class="progress-fill"></div>
+  </div>
+
+  <div class="time">
+    <span>0:00</span>
+    <span>3:45</span>
+  </div>
+
+  <div class="controls">
+    <button>⏮</button>
+    <button class="play">▶</button>
+    <button>⏭</button>
+  </div>
+</div>
+
 </body>
 </html>
